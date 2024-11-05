@@ -1,0 +1,7 @@
+{
+  "cSpell.words": ["tseslint"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.formatOnSave": true
+}

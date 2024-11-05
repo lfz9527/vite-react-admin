@@ -4,6 +4,3 @@ node_modules/
 # 忽略 dist 目录
 dist/
 
-# 忽略所有以.vscode 结尾的文件
-.vscode/
-
