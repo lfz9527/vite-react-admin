@@ -1,6 +1,5 @@
 export default function App() {
   const a = 1
-
   return (
     <div className="App">
       <h1>Hello CodeSandbox</h1>
