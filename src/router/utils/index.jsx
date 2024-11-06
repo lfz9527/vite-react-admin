@@ -1,14 +1,14 @@
-import { lazy, Suspense } from "react"
+import React, { lazy, Suspense } from "react"
 
 /**
  * @description 路由懒加载
- * @param {String} CompPath 需要访问的组件
+ * @param {String} Comp 需要访问的组件
  * @returns element
  */
-const lazyLoad = (CompPath) => {
+const lazyLoad = (Comp) => {
   return (
     // @TODO 路由懒加载逻辑
-    <Suspense fallback={"loading..."}>{CompPath && lazy(() => import(CompPath))}</Suspense>
+    <Suspense fallback={"loading..."}>{React.createElement(lazy(Comp))}</Suspense>
   )
 }
 

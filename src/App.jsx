@@ -1,10 +1,4 @@
-import { HashRouter } from "react-router-dom"
-
-import Router from "@/router"
+import { createRouter as Routes } from "./router"
 export default function App() {
-  return (
-    <HashRouter>
-      <Router />
-    </HashRouter>
-  )
+  return <Routes />
 }
