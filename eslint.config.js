@@ -1,13 +1,17 @@
-import eslintignore from "./eslint.ignore.js"
-import globals from "globals"
 import pluginJs from "@eslint/js"
-import pluginReact from "eslint-plugin-react"
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended"
+import pluginReact from "eslint-plugin-react"
+import simpleImportSort from "eslint-plugin-simple-import-sort"
+import globals from "globals"
+import eslintignore from "./eslint.ignore.js"
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {
     files: ["**/*.{js,mjs,cjs,jsx}"],
+    plugins: {
+      "simple-import-sort": simpleImportSort,
+    },
   },
   {
     languageOptions: {
@@ -27,6 +31,28 @@ export default [
     rules: {
       "react/jsx-uses-react": "off",
       "react/react-in-jsx-scope": "off",
+      "simple-import-sort/exports": "warn",
+      "simple-import-sort/imports": [
+        "warn",
+        {
+          groups: [
+            [
+              "^(node:|vite)",
+              "^react",
+              "^@?\\w",
+              "^@/components",
+              "^\\.\\.(?!/?$)",
+              "^\\.\\./?$",
+              "^\\./(?=.*/)(?!/?$)",
+              "^\\.(?!/?$)",
+              "^\\./?$",
+              "^@(utils|store|hooks|api|router)",
+            ],
+            ["antd/locale/zh_CN", "dayjs/locale/zh-cn"],
+            ["^.+\\.s?css$"],
+          ],
+        },
+      ],
     },
   },
   eslintPluginPrettierRecommended,
