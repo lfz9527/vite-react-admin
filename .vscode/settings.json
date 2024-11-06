@@ -1,6 +1,7 @@
 {
   "files.encoding": "utf8",
   "cSpell.words": ["tseslint"],
+  "css.lint.unknownAtRules": "ignore",
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
   },
