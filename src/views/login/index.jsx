@@ -1,63 +1,96 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Box, Button, Checkbox, FormControl, FormControlLabel, FormHelperText, TextField } from "@mui/material"
+import { Button, Checkbox, Flex, Form, Input } from "antd"
 
 export default function Login() {
   const navigate = useNavigate()
-  const [formData, setFormData] = useState({ username: "", password: "" })
-  const [errors, setErrors] = useState({ username: false, password: false })
-  const [rememberMe, setRememberMe] = useState(false)
+  const [form] = Form.useForm()
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+    remember: false,
+  })
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    // 简单的表单验证
-    const newErrors = { username: !formData.username, password: !formData.password }
-    setErrors(newErrors)
-
-    // 如果没有错误，进行提交
-    if (!newErrors.name && !newErrors.email) {
-      navigate("/home", { replace: true })
+  useEffect(() => {
+    const loginData = localStorage.getItem("loginData")
+    if (loginData) {
+      const data = JSON.parse(loginData)
+      setFormData(data)
+      form.setFieldsValue(data)
     }
+  }, [])
+
+  // 登录
+  const handleSubmit = (param) => {
+    console.log("param", param)
+
+    const { remember } = param
+
+    if (remember) {
+      localStorage.setItem("loginData", JSON.stringify(param))
+    } else {
+      localStorage.removeItem("userInfo")
+    }
+
+    navigate("/home", { replace: true })
   }
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
-  const handleRememberMeChange = (e) => {
-    setRememberMe(e.target.checked)
+  // 忘记密码
+  const forgetPassword = () => {
+    alert("忘记密码")
   }
 
   return (
     <div className="login-container w-full h-screen bg-[#f4f6f9] flex justify-center items-center ">
       <div className="form-card-wrap shadow-card">
-        <Box
-          component="form"
-          autoComplete="off"
-          onSubmit={handleSubmit}
-          sx={{
-            width: 500,
-            padding: 3,
-            borderRadius: 2,
-            bgcolor: "#fff",
-          }}
-        >
-          <FormControl fullWidth error={errors.username} margin="dense">
-            <TextField label="账号" name="username" value={formData.username} onChange={handleChange} required size="small" />
-            {errors.username && <FormHelperText>必填项</FormHelperText>}
-          </FormControl>
-          <FormControl fullWidth error={errors.password} margin="normal">
-            <TextField label="密码" name="password" value={formData.password} onChange={handleChange} required size="small" />
-            {errors.password && <FormHelperText>必填项</FormHelperText>}
-          </FormControl>
-          <FormControlLabel control={<Checkbox size="small" checked={rememberMe} onChange={handleRememberMeChange} color="primary" />} label="记住密码" />
-          <Button type="submit" variant="contained" size="large" fullWidth>
-            登 录
-          </Button>
-        </Box>
+        <div className="bg-white  p-[30px] w-[450px]">
+          <h1 className="text-[#222222] text-[24px] font-bold mb-[20px] text-center">
+            登录
+          </h1>
+          <Form
+            layout="vertical"
+            form={form}
+            name="login-form"
+            size="large"
+            initialValues={formData}
+            autoComplete="off"
+            onFinish={handleSubmit}
+          >
+            <Form.Item
+              name="username"
+              label="用户名"
+              rules={[{ required: true, message: "请输入用户名" }]}
+            >
+              <Input placeholder="请输入用户名" />
+            </Form.Item>
+            <Form.Item
+              label="密码"
+              name="password"
+              rules={[{ required: true, message: "请输入密码" }]}
+            >
+              <Input type="password" placeholder="请输入密码" />
+            </Form.Item>
+
+            <Form.Item>
+              <Flex justify="space-between" align="center">
+                <Form.Item name="remember" valuePropName="checked" noStyle>
+                  <Checkbox>记住密码</Checkbox>
+                </Form.Item>
+                <span
+                  className="text-[#1677ff] cursor-pointer"
+                  onClick={forgetPassword}
+                >
+                  忘记密码？
+                </span>
+              </Flex>
+            </Form.Item>
+            <Form.Item>
+              <Button block type="primary" htmlType="submit">
+                登录
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
       </div>
     </div>
   )
