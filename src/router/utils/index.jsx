@@ -8,7 +8,9 @@ import React, { lazy, Suspense } from "react"
 const lazyLoad = (Comp) => {
   return (
     // @TODO 路由懒加载逻辑
-    <Suspense fallback={"loading..."}>{React.createElement(lazy(Comp))}</Suspense>
+    <Suspense fallback={"loading..."}>
+      {React.createElement(lazy(Comp))}
+    </Suspense>
   )
 }
 
