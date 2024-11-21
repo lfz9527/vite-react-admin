@@ -1,1 +1,13 @@
-@import url('./tailwind.css');
+@import url("./tailwind.css");
+
+*::-webkit-scrollbar {
+  width: 5px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 5px;
+}
+/* 滚动条轨道 */
+*::-webkit-scrollbar-track {
+  border-radius: 1px;
+}
