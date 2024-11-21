@@ -1,6 +1,6 @@
 {
   "files.encoding": "utf8",
-  "cSpell.words": ["antd", "Formik", "tseslint"],
+  "cSpell.words": ["antd", "Formik", "persistor", "tseslint"],
   "css.lint.unknownAtRules": "ignore",
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
