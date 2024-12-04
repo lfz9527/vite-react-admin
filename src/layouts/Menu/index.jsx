@@ -12,6 +12,11 @@ const testMenus = [
     path: "/home",
     title: "首页",
   },
+  {
+    icon: "AreaChartOutlined",
+    path: "/page",
+    title: "页面",
+  },
 ]
 
 const LayoutMenu = () => {
